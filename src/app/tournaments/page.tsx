@@ -1,6 +1,7 @@
 import LayoutDefault from '@/components/layouts/default'
 import { PaginationType } from '@/types/Pagination'
 import { TournamentType } from '@/types/Tournament'
+import Link from 'next/link'
 
 export default async function Tournaments() {
   const tournaments = await getTournaments()
@@ -12,7 +13,11 @@ export default async function Tournaments() {
 
         <ul>
           {tournaments.content.map((tournament) => (
-            <li key={tournament.id}>{tournament.title}</li>
+            <li key={tournament.id}>
+              <Link href={`/tournaments/${tournament.id}`}>
+                {tournament.title}
+              </Link>
+            </li>
           ))}
         </ul>
       </LayoutDefault>
