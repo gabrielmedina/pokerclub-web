@@ -11,8 +11,8 @@ export default async function Tournaments() {
         <h1>Tournaments</h1>
 
         <ul>
-          {tournaments.content.map((tournaments) => (
-            <li key={tournaments.id}>{tournaments.title}</li>
+          {tournaments.content.map((tournament) => (
+            <li key={tournament.id}>{tournament.title}</li>
           ))}
         </ul>
       </LayoutDefault>
@@ -24,7 +24,7 @@ async function getTournaments(): Promise<PaginationType<TournamentType>> {
   const response = await fetch(`${process.env.API_URL}/tournaments`)
 
   if (!response.ok) {
-    throw new Error('Failed to fetch players data')
+    throw new Error('Failed to fetch tournaments data')
   }
 
   return response.json()
