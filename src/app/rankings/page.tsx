@@ -5,8 +5,6 @@ import { RankingType } from '@/types/Ranking'
 export default async function Rankings() {
   const rankings = await getRankings()
 
-  console.log(rankings)
-
   return (
     <main>
       <LayoutDefault>
