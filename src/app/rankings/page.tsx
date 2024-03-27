@@ -1,6 +1,7 @@
 import LayoutDefault from '@/components/Layouts/Default'
 import { PaginationType } from '@/types/Pagination'
 import { RankingType } from '@/types/Ranking'
+import Link from 'next/link'
 
 export default async function Rankings() {
   const rankings = await getRankings()
@@ -12,7 +13,9 @@ export default async function Rankings() {
 
         <ul>
           {rankings.content.map((ranking) => (
-            <li key={ranking.id}>{ranking.title}</li>
+            <li key={ranking.id}>
+              <Link href={`/rankings/${ranking.id}`}>{ranking.title}</Link>
+            </li>
           ))}
         </ul>
       </LayoutDefault>
