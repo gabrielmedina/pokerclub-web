@@ -1,4 +1,7 @@
-import LayoutDefault from '@/components/layouts/default'
+'use server'
+
+import LayoutDefault from '@/components/Layouts/Default'
+import { TournamentPlayer } from '@/components/Tournament/TournamentPlayer'
 import { TournamentType } from '@/types/Tournament'
 import { TournamentsPlayersType } from '@/types/TournamentsPlayers'
 
@@ -23,18 +26,11 @@ export default async function Tournament({
             <h2>Players</h2>
 
             <ol>
-              {tournamentPlayers.map(
-                ({ player, points, prize, finishPosition }) => (
-                  <li key={player.id}>
-                    <section>
-                      <h3>{player.name}</h3>
-                      <p>Points: {points}</p>
-                      <p>Prize: {prize}</p>
-                      <p>Finish position: {finishPosition}</p>
-                    </section>
-                  </li>
-                )
-              )}
+              {tournamentPlayers.map((tournamentPlayer) => (
+                <li key={tournamentPlayer.player.id}>
+                  <TournamentPlayer tournamentPlayer={tournamentPlayer} />
+                </li>
+              ))}
             </ol>
           </section>
         </article>
@@ -44,7 +40,9 @@ export default async function Tournament({
 }
 
 async function getTournament(id: string): Promise<TournamentType> {
-  const response = await fetch(`${process.env.API_URL}/tournaments/${id}`)
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/tournaments/${id}`
+  )
 
   if (!response.ok) {
     throw new Error('Failed to fetch tournament data')
@@ -57,7 +55,7 @@ async function getTournamentPlayers(
   id: string
 ): Promise<TournamentsPlayersType[]> {
   const response = await fetch(
-    `${process.env.API_URL}/tournaments-players/tournament/${id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/tournaments-players/tournament/${id}`
   )
 
   if (!response.ok) {
@@ -66,3 +64,37 @@ async function getTournamentPlayers(
 
   return response.json()
 }
+
+// async function putTournamentPlayer({
+//   tournamentId,
+//   playerId,
+//   body,
+// }: Readonly<{
+//   'use server'
+
+//   tournamentId: string
+//   playerId: string
+//   body: {
+//     points: number
+//     prize: number
+//     finishPosition: number
+//   }
+// }>) {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_API_URL}/tournaments-players/tournament/${tournamentId}/player/${playerId}`,
+//     {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(body),
+//     }
+//   )
+
+//   if (!response.ok) {
+//     console.log(response)
+//     throw new Error('Failed to update tournament player data')
+//   }
+
+//   return response.json()
+// }
