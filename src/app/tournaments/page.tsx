@@ -1,4 +1,4 @@
-import LayoutDefault from '@/components/layouts/default'
+import LayoutDefault from '@/components/Layouts/Default'
 import { PaginationType } from '@/types/Pagination'
 import { TournamentType } from '@/types/Tournament'
 import Link from 'next/link'
@@ -26,7 +26,7 @@ export default async function Tournaments() {
 }
 
 async function getTournaments(): Promise<PaginationType<TournamentType>> {
-  const response = await fetch(`${process.env.API_URL}/tournaments`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tournaments`)
 
   if (!response.ok) {
     throw new Error('Failed to fetch tournaments data')

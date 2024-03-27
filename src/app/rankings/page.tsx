@@ -1,4 +1,4 @@
-import LayoutDefault from '@/components/layouts/default'
+import LayoutDefault from '@/components/Layouts/Default'
 import { PaginationType } from '@/types/Pagination'
 import { RankingType } from '@/types/Ranking'
 
@@ -21,7 +21,7 @@ export default async function Rankings() {
 }
 
 async function getRankings(): Promise<PaginationType<RankingType>> {
-  const response = await fetch(`${process.env.API_URL}/rankings`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rankings`)
 
   if (!response.ok) {
     throw new Error('Failed to fetch rankings data')
